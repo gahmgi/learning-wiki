@@ -5,7 +5,7 @@
 
 ## 1. 계정 (가장 먼저 확인)
 
-- 개인 저장소입니다. 원격은 `github.com/gahmgi/learning-wiki`(비공개)입니다.
+- 개인 저장소입니다. 원격은 `github.com/gahmgi/learning-wiki`(비공개)로 둡니다. 첫 푸시 전에는 원격이 없습니다.
 - 커밋 이메일은 `gahmhg@gmail.com`만 씁니다. 회사 이메일은 쓰지 않습니다.
   `hooks/pre-commit`이 작성자·커미터를 검사하고, 다르면 커밋을 멈춥니다.
 - 새 클론에서는 아래를 한 번 실행합니다.
@@ -62,7 +62,7 @@ sources:
 ```
 
 - 검사는 `src/content.config.ts`의 스키마가 합니다. 학습 페이지는 위 4칸(`worknote_id`·`maturity`·`sources`·`learned`)이 하나라도 없으면 빌드가 멈춥니다.
-- 홈·카테고리 개요처럼 원 노트가 없는 페이지만 `page: hub`로 면제합니다. 학습 페이지에는 쓰지 않습니다.
+- 홈·카테고리 개요처럼 원 노트가 없는 페이지만 `page: hub`로 면제합니다. `index.md`·`index.mdx`가 아닌 파일에 쓰면 `scripts/check-hubs.mjs`가 빌드를 멈춥니다.
 - 성숙도 기준
   - **씨앗**: 요약·기사만 봤거나 논점만 적어 둔 상태
   - **자라는 중**: 주요 출처를 확인했고 구조가 잡힌 상태
