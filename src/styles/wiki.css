@@ -14,6 +14,17 @@
 	--wiki-settled: #c4b5fd;
 }
 
+/* Korean: break between words, not inside them. Long URLs may still wrap anywhere. */
+h1,
+.sl-markdown-content,
+.wiki-lead,
+.wiki-sources,
+.wiki-compare,
+.wiki-flow,
+.wiki-summary { word-break: keep-all; overflow-wrap: anywhere; }
+
+.wiki-lead { font-size: var(--sl-text-lg); line-height: 1.6; color: var(--sl-color-gray-2); margin: 0 0 1.5rem; }
+
 .wiki-meta { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; font-size: var(--sl-text-sm); color: var(--sl-color-gray-3); margin-bottom: 1rem; }
 .wiki-maturity { padding: .1rem .55rem; border-radius: 999px; border: 1px solid currentColor; font-weight: 600; }
 .wiki-maturity.seed { color: var(--wiki-seed); }

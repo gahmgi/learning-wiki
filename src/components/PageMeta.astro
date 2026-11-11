@@ -18,6 +18,7 @@ const sources = (data.sources ?? []) as { title: string; url?: string; note?: st
 		</p>
 	)
 }
+{isLearning && data.description && <p class="wiki-lead">{data.description}</p>}
 <Default><slot /></Default>
 {
 	isLearning && (
