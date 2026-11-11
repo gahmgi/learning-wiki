@@ -1,0 +1,17 @@
+---
+title: 학습 위키
+description: 배운 것을 그림과 표로 쌓아 두는 개인 위키
+page: hub
+template: splash
+hero:
+  tagline: 배운 것을 그림과 표로 쌓아 두는 개인 위키입니다. 첫 주제는 게임 개발과 AI 아트 파이프라인입니다.
+---
+
+import { CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+<CardGrid>
+	<LinkCard title="파이프라인" href="/pipeline/why-artists-still-use-photoshop/" description="에셋이 만들어지고 다듬어지는 흐름" />
+	<LinkCard title="도구" href="/tools/" description="쓰는 도구와 쓰는 이유" />
+	<LinkCard title="법·정책" href="/law-policy/" description="저작권·계약·사내 정책" />
+	<LinkCard title="조직·직무" href="/org-roles/" description="누가 무엇을 맡는가" />
+</CardGrid>

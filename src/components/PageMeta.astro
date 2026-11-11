@@ -1,0 +1,36 @@
+---
+// Overrides Starlight's MarkdownContent: shows provenance above and sources below learning pages.
+import Default from '@astrojs/starlight/components/MarkdownContent.astro';
+
+const data = Astro.locals.starlightRoute.entry.data as Record<string, any>;
+const isLearning = data.page !== 'hub' && Boolean(data.maturity);
+const learned = data.learned instanceof Date ? data.learned.toISOString().slice(0, 10) : '';
+const maturityClass =
+	({ 씨앗: 'seed', '자라는 중': 'growing', 정리됨: 'settled' } as Record<string, string>)[data.maturity] ?? '';
+const sources = (data.sources ?? []) as { title: string; url?: string; note?: string }[];
+---
+
+{
+	isLearning && (
+		<p class="wiki-meta">
+			<span class:list={['wiki-maturity', maturityClass]}>{data.maturity}</span>
+			<span>학습일 {learned}</span>
+		</p>
+	)
+}
+<Default><slot /></Default>
+{
+	isLearning && (
+		<section class="wiki-sources" aria-labelledby="wiki-sources-h">
+			<h2 id="wiki-sources-h">출처</h2>
+			<ol>
+				{sources.map((s) => (
+					<li>
+						{s.url ? <a href={s.url}>{s.title}</a> : s.title}
+						{s.note && <span class="wiki-source-note"> · {s.note}</span>}
+					</li>
+				))}
+			</ol>
+		</section>
+	)
+}

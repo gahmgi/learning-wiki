@@ -1,0 +1,54 @@
+/* Wiki parts. Colors lean on Starlight tokens so light and dark both work. */
+:root {
+	--wiki-human: #b45309;
+	--wiki-human-bg: #fef3c7;
+	--wiki-seed: #4d7c0f;
+	--wiki-growing: #0369a1;
+	--wiki-settled: #6d28d9;
+}
+:root[data-theme='dark'] {
+	--wiki-human: #fbbf24;
+	--wiki-human-bg: #3a2a07;
+	--wiki-seed: #a3e635;
+	--wiki-growing: #38bdf8;
+	--wiki-settled: #c4b5fd;
+}
+
+.wiki-meta { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; font-size: var(--sl-text-sm); color: var(--sl-color-gray-3); margin-bottom: 1rem; }
+.wiki-maturity { padding: .1rem .55rem; border-radius: 999px; border: 1px solid currentColor; font-weight: 600; }
+.wiki-maturity.seed { color: var(--wiki-seed); }
+.wiki-maturity.growing { color: var(--wiki-growing); }
+.wiki-maturity.settled { color: var(--wiki-settled); }
+
+.wiki-sources { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--sl-color-hairline); font-size: var(--sl-text-sm); }
+.wiki-sources h2 { font-size: var(--sl-text-h4); margin-bottom: .5rem; }
+.wiki-sources ol { padding-inline-start: 1.25rem; }
+.wiki-source-note { color: var(--sl-color-gray-3); }
+
+.wiki-compare { overflow-x: auto; margin-block: 1.5rem; }
+.wiki-compare table { border-collapse: collapse; width: 100%; font-size: var(--sl-text-sm); }
+.wiki-compare caption { text-align: start; font-weight: 600; margin-bottom: .5rem; color: var(--sl-color-white); }
+.wiki-compare th,
+.wiki-compare td { border: 1px solid var(--sl-color-gray-5); padding: .5rem .75rem; text-align: start; vertical-align: top; }
+.wiki-compare thead th { background: var(--sl-color-gray-6); color: var(--sl-color-white); }
+.wiki-compare tbody th { font-weight: 600; color: var(--sl-color-white); }
+.wiki-compare .hl { background: var(--sl-color-accent-low); }
+
+.wiki-flow { margin: 1.5rem 0; }
+.wiki-flow ol { list-style: none; padding: 0; margin: 0; display: grid; gap: .6rem; }
+.wiki-flow li { display: flex; gap: .75rem; align-items: flex-start; padding: .75rem 1rem; border: 1px solid var(--sl-color-gray-5); border-radius: .5rem; position: relative; margin: 0; }
+.wiki-flow li + li::before { content: ""; position: absolute; top: -.65rem; left: 1.7rem; height: .6rem; border-left: 2px solid var(--sl-color-gray-4); }
+.wiki-flow li.human { border-color: var(--wiki-human); background: var(--wiki-human-bg); }
+.wiki-flow .num { flex: none; width: 1.5rem; height: 1.5rem; border-radius: 50%; display: grid; place-items: center; font-size: var(--sl-text-xs); font-weight: 700; background: var(--sl-color-accent); color: var(--sl-color-black); }
+.wiki-flow li.human .num { background: var(--wiki-human); }
+.wiki-flow p { margin: 0; }
+.wiki-flow .title { font-weight: 600; color: var(--sl-color-white); }
+.wiki-flow .owner { margin-inline-start: .5rem; font-size: var(--sl-text-xs); font-weight: 500; padding: 0 .4rem; border-radius: .25rem; border: 1px solid var(--sl-color-gray-4); color: var(--sl-color-gray-2); }
+.wiki-flow .detail { font-size: var(--sl-text-sm); color: var(--sl-color-gray-2); margin-top: .2rem; }
+.wiki-flow figcaption { font-size: var(--sl-text-sm); color: var(--sl-color-gray-3); margin-top: .5rem; }
+
+.wiki-summary { margin: 1.5rem 0; padding: 1rem 1.25rem; border-radius: .5rem; border-inline-start: 4px solid var(--sl-color-accent); background: var(--sl-color-accent-low); }
+.wiki-summary .label { margin: 0; font-size: var(--sl-text-xs); font-weight: 700; letter-spacing: .04em; color: var(--sl-color-accent-high); }
+.wiki-summary .title { margin: .25rem 0 0; font-size: var(--sl-text-lg); font-weight: 700; color: var(--sl-color-white); }
+.wiki-summary ul { margin: .5rem 0 0; padding-inline-start: 1.1rem; }
+.wiki-summary li { margin: .15rem 0; }

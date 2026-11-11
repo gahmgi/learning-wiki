@@ -1,0 +1,16 @@
+---
+// Key-takeaway card. Put the one-line conclusion in `title`, supporting points in `points`.
+interface Props {
+	title: string;
+	points?: string[];
+	label?: string;
+}
+const { title, points = [], label = '핵심 요약' } = Astro.props;
+---
+
+<aside class="wiki-summary not-content" aria-label={label}>
+	<p class="label">{label}</p>
+	<p class="title">{title}</p>
+	{points.length > 0 && <ul>{points.map((p) => <li>{p}</li>)}</ul>}
+	<slot />
+</aside>
