@@ -5,6 +5,7 @@ export const CATEGORY_LABELS: Record<string, string> = {
 	'law-policy': '법·정책',
 	'org-roles': '조직·직무',
 	design: '디자인',
+	operations: '운영 경험',
 };
 
 export interface Source {
