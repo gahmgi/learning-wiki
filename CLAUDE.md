@@ -46,6 +46,7 @@ Netlify는 Pro 플랜의 Project visibility, Cloudflare는 Access입니다.
 | 법·정책 | `src/content/docs/wiki/law-policy/` |
 | 조직·직무 | `src/content/docs/wiki/org-roles/` |
 | 디자인 | `src/content/docs/wiki/design/` |
+| 운영 경험 | `src/content/docs/wiki/operations/` |
 
 - 카테고리는 페이지가 하나라도 생겨야 사이드바에 나옵니다(`astro.config.mjs`의 `hasPages`). 빈 개요 페이지를 미리 만들지 않습니다.
 - 새 카테고리를 더하면 `astro.config.mjs`의 `CATEGORIES`와 `src/lib/meta.ts`의 `CATEGORY_LABELS` 두 곳에 한 줄씩 넣습니다.

@@ -14,6 +14,7 @@ const CATEGORIES = [
 	{ label: '법·정책', dir: 'law-policy' },
 	{ label: '조직·직무', dir: 'org-roles' },
 	{ label: '디자인', dir: 'design' },
+	{ label: '운영 경험', dir: 'operations' },
 ];
 
 // Show a category only once it has at least one page, so the sidebar never lists empty sections.
