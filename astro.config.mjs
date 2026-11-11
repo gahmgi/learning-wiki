@@ -23,6 +23,8 @@ const hasPages = (dir) => {
 };
 
 export default defineConfig({
+	// Update when a custom domain replaces the Netlify subdomain.
+	site: 'https://magical-druid-50492b.netlify.app',
 	output: 'static',
 	redirects: { '/': '/wiki/' },
 	integrations: [
