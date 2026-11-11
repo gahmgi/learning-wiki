@@ -110,7 +110,7 @@ import SummaryCard from '../../../../components/SummaryCard.astro';
 - 서체는 Pretendard 하나. 고정폭(IBM Plex Mono)은 날짜·단계 번호 같은 **숫자에만** 씁니다. 한글 라벨에 고정폭을 쓰면 글자 사이가 벌어져 보입니다.
 - 색은 `src/styles/wiki.css` 맨 위 토큰만 씁니다. 따뜻한 무채색 + 이끼색 강조 하나. **파란색·파란 음영은 쓰지 않습니다.**
 - 칠한 상자, 둥근 카드, **카드 왼쪽 굵은 세로선**을 만들지 않습니다. 구분은 가는 가로선과 여백으로 합니다.
-- 출처·정리 상태는 본문이 아니라 오른쪽 여백에 둡니다(`PageSidebar`·`Provenance` 부품).
+- 출처·정리 상태는 본문이 아니라 오른쪽 여백에 둡니다(`PageSidebar`·`Provenance` 부품). 좁은 화면에서는 `PageMeta`(Starlight `MarkdownContent` 대체)가 본문 아래에 같은 내용을 붙이고, 리드 문장도 이 부품이 그립니다.
 - 한글 줄바꿈은 `word-break: keep-all`. 제목·리드의 가운뎃점은 `joinDots`로 앞에서 줄이 바뀌지 않게 합니다.
 - 고친 뒤에는 데스크톱·좁은 화면(500px)·다크를 렌더해서 직접 봅니다. 빌드 통과는 디자인 확인이 아닙니다.
 

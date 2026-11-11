@@ -16,7 +16,7 @@ const href = (id: string) => `/${id}/`;
 			<li>
 				<span class="meta">{info.category}{info.category && info.learned && " · "}<span class="d">{info.learned}</span></span>
 				<a href={href(e.id)}>{joinDots(e.data.title)}</a>
-				{e.data.description && <p>{e.data.description}</p>}
+				{e.data.description && <p>{joinDots(e.data.description)}</p>}
 			</li>
 		))
 	}

@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import { existsSync, readdirSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
 // Portability: static output to dist/ only. No host-specific files (netlify.toml, _redirects, _headers).
 // Redirects live here so any static host (Netlify now, Cloudflare Pages later) serves them the same way.
@@ -17,7 +18,7 @@ const CATEGORIES = [
 
 // Show a category only once it has at least one page, so the sidebar never lists empty sections.
 const hasPages = (dir) => {
-	const path = `./src/content/docs/wiki/${dir}`;
+	const path = fileURLToPath(new URL(`./src/content/docs/wiki/${dir}`, import.meta.url));
 	return existsSync(path) && readdirSync(path).some((f) => /\.mdx?$/.test(f));
 };
 
