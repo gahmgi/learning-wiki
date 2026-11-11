@@ -1,6 +1,6 @@
 ---
-// Step flow diagram in plain HTML/CSS (no runtime JS, no Mermaid).
-// owner: who does the step (e.g. 'AI', '아티스트'). human: true highlights steps people must own.
+// Step flow as numbered rows (no runtime JS, no boxes).
+// owner: who does the step. human: true marks steps a person must judge and own (accent on the owner).
 interface Step {
 	title: string;
 	detail?: string;
@@ -15,21 +15,19 @@ const { caption, steps } = Astro.props;
 ---
 
 <figure class="wiki-flow not-content">
+	{caption && <figcaption>{caption}</figcaption>}
 	<ol>
 		{
 			steps.map((s, i) => (
 				<li class:list={{ human: s.human }}>
-					<span class="num" aria-hidden="true">{i + 1}</span>
-					<div>
-						<p class="title">
-							{s.title}
-							{s.owner && <span class="owner">{s.owner}</span>}
-						</p>
-						{s.detail && <p class="detail">{s.detail}</p>}
-					</div>
+					<span class="n">{String(i + 1).padStart(2, '0')}</span>
+					<span class="body">
+						<span class="title">{s.title}</span>
+						{s.detail && <span class="detail">{s.detail}</span>}
+					</span>
+					{s.owner && <span class="owner">{s.human ? `${s.owner} · 사람 판단` : s.owner}</span>}
 				</li>
 			))
 		}
 	</ol>
-	{caption && <figcaption>{caption}</figcaption>}
 </figure>

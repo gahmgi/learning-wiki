@@ -1,0 +1,32 @@
+---
+// Status sentence, numbered sources and the source note marker. Used in the right margin and,
+// on narrow screens, below the body.
+import { pageInfo } from '../lib/meta';
+
+const { entry } = Astro.locals.starlightRoute;
+const { status, sources } = pageInfo(entry);
+---
+
+<div class="wiki-prov">
+	<section>
+		<h2>정리 상태</h2>
+		<p>{status}</p>
+	</section>
+	<section>
+		<h2>출처</h2>
+		<ol>
+			{
+				sources.map((s) => (
+					<li>
+						{s.url ? <a href={s.url}>{s.title}</a> : s.title}
+						{s.note && <span class="note">{s.note}</span>}
+					</li>
+				))
+			}
+		</ol>
+	</section>
+	<section>
+		<h2>원 노트</h2>
+		<p>WorkNote에서 발행</p>
+	</section>
+</div>

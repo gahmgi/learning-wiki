@@ -1,6 +1,6 @@
-# 학습 위키
+# loglab study wiki
 
-배운 것을 그림과 표로 쌓아 두는 개인 위키입니다. Astro Starlight로 만들고 `dist/`만 배포합니다.
+공부한 것을 표와 흐름으로 정리해 두는 개인 위키입니다. 주소는 `/wiki/` 아래입니다. Astro Starlight로 만들고 `dist/`만 배포합니다.
 
 ```sh
 npm install

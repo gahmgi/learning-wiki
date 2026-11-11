@@ -1,65 +1,263 @@
-/* Wiki parts. Colors lean on Starlight tokens so light and dark both work. */
+/*
+ * loglab study wiki · A안 "연구 노트"
+ * Layout: one quiet reading column; provenance (status, sources) lives in the right margin.
+ * Tokens: warm-neutral greys, one moss accent used only for links and steps a person owns.
+ * No filled cards, no left accent rails, no blue. Separation by hairlines and whitespace.
+ */
+
+/* Dark (Starlight's base) */
 :root {
-	--wiki-human: #b45309;
-	--wiki-human-bg: #fef3c7;
-	--wiki-seed: #4d7c0f;
-	--wiki-growing: #0369a1;
-	--wiki-settled: #6d28d9;
+	--sl-font: 'Pretendard Variable', Pretendard, -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+	/* Hangul falls through to Pretendard instead of a system mono with wide spacing. */
+	--sl-font-mono: 'IBM Plex Mono', 'Pretendard Variable', Pretendard, ui-monospace, SFMono-Regular, Consolas, monospace;
+
+	--sl-color-white: #ecece7;
+	--sl-color-gray-1: #dadad4;
+	--sl-color-gray-2: #bcbcb5;
+	--sl-color-gray-3: #9b9b93;
+	--sl-color-gray-4: #6f6f69;
+	--sl-color-gray-5: #393936;
+	--sl-color-gray-6: #242422;
+	--sl-color-black: #181817;
+	--sl-color-accent-low: #2b3222;
+	--sl-color-accent: #a3b585;
+	--sl-color-accent-high: #c6d3ae;
+	--sl-color-text-accent: var(--sl-color-accent);
+	--sl-color-hairline: #2e2e2b;
+	--sl-color-hairline-light: #2e2e2b;
+	--sl-color-hairline-shade: #121211;
+	--sl-color-bg-nav: var(--sl-color-black);
+	--sl-color-bg-sidebar: var(--sl-color-black);
+
+	--wiki-line: #333330;
+	--wiki-accent: #a3b585;
+
+	--sl-content-width: 40rem;
+	--sl-line-height: 1.8;
+	--sl-text-body: 1.03125rem;
+	--sl-text-h1: 2rem;
+	--sl-text-h2: 1.3125rem;
+	--sl-text-h3: 1.125rem;
+	--sl-text-h4: 1rem;
+	--sl-text-h5: 0.9375rem;
 }
-:root[data-theme='dark'] {
-	--wiki-human: #fbbf24;
-	--wiki-human-bg: #3a2a07;
-	--wiki-seed: #a3e635;
-	--wiki-growing: #38bdf8;
-	--wiki-settled: #c4b5fd;
+
+:root[data-theme='light'] {
+	--sl-color-white: #222220;
+	--sl-color-gray-1: #33332f;
+	--sl-color-gray-2: #4a4a46;
+	--sl-color-gray-3: #75756f;
+	--sl-color-gray-4: #9e9e97;
+	--sl-color-gray-5: #e4e4df;
+	--sl-color-gray-6: #f1f1ee;
+	--sl-color-gray-7: #f6f6f4;
+	--sl-color-black: #fbfbfa;
+	--sl-color-accent-low: #e6ebdd;
+	--sl-color-accent: #4f6236;
+	--sl-color-accent-high: #3a4927;
+	--sl-color-text-accent: var(--sl-color-accent);
+	--sl-color-hairline: #e4e4df;
+	--sl-color-hairline-light: #ececE8;
+	--sl-color-hairline-shade: #d8d8d2;
+	--sl-color-bg-nav: var(--sl-color-black);
+	--sl-color-bg-sidebar: var(--sl-color-black);
+
+	--wiki-line: #e4e4df;
+	--wiki-accent: #4f6236;
 }
 
-/* Korean: break between words, not inside them. Long URLs may still wrap anywhere. */
-h1,
-.sl-markdown-content,
-.wiki-lead,
-.wiki-sources,
-.wiki-compare,
-.wiki-flow,
-.wiki-summary { word-break: keep-all; overflow-wrap: anywhere; }
+/* Breakpoint-specific Starlight sizes get the same scale. */
+@media (min-width: 50em) {
+	:root {
+		--sl-text-h1: 2rem;
+		--sl-text-h2: 1.3125rem;
+		--sl-text-h3: 1.125rem;
+		--sl-text-h4: 1rem;
+	}
+}
 
-.wiki-lead { font-size: var(--sl-text-lg); line-height: 1.6; color: var(--sl-color-gray-2); margin: 0 0 1.5rem; }
+/* ---------- Base type ---------- */
+body {
+	letter-spacing: -0.005em;
+	word-break: keep-all;
+	overflow-wrap: anywhere;
+}
+.sl-markdown-content :is(h2, h3, h4) {
+	letter-spacing: -0.015em;
+	font-weight: 700;
+	text-wrap: balance;
+}
+.sl-markdown-content h2 { margin-top: 2.75rem; }
+.sl-markdown-content h3 { margin-top: 2rem; }
+.sl-markdown-content a { text-decoration-thickness: 1px; text-underline-offset: 3px; }
+.sl-markdown-content :is(ul, ol) li + li { margin-top: 0.25rem; }
 
-.wiki-meta { display: flex; flex-wrap: wrap; gap: .75rem; align-items: center; font-size: var(--sl-text-sm); color: var(--sl-color-gray-3); margin-bottom: 1rem; }
-.wiki-maturity { padding: .1rem .55rem; border-radius: 999px; border: 1px solid currentColor; font-weight: 600; }
-.wiki-maturity.seed { color: var(--wiki-seed); }
-.wiki-maturity.growing { color: var(--wiki-growing); }
-.wiki-maturity.settled { color: var(--wiki-settled); }
+/* ---------- Chrome: header, sidebar ---------- */
+header.header { border-bottom: 1px solid var(--wiki-line); }
+.wiki-site-title {
+	font-size: 1rem;
+	font-weight: 650;
+	letter-spacing: -0.01em;
+	color: var(--sl-color-white);
+	text-decoration: none;
+	white-space: nowrap;
+}
+.wiki-site-title span { font-weight: 400; color: var(--sl-color-gray-3); }
 
-.wiki-sources { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid var(--sl-color-hairline); font-size: var(--sl-text-sm); }
-.wiki-sources h2 { font-size: var(--sl-text-h4); margin-bottom: .5rem; }
-.wiki-sources ol { padding-inline-start: 1.25rem; }
-.wiki-source-note { color: var(--sl-color-gray-3); }
+#starlight__sidebar .group-label .large,
+nav.sidebar :is(summary .large, .large) {
+	font-size: 0.8125rem;
+	font-weight: 600;
+	color: var(--sl-color-gray-3);
+}
+nav.sidebar a { font-size: 0.875rem; color: var(--sl-color-gray-2); }
+nav.sidebar a[aria-current='page'],
+nav.sidebar a[aria-current='page']:hover,
+nav.sidebar a[aria-current='page']:focus {
+	background: transparent;
+	color: var(--sl-color-white);
+	font-weight: 600;
+}
+nav.sidebar a:hover { color: var(--sl-color-white); }
 
-.wiki-compare { overflow-x: auto; margin-block: 1.5rem; }
-.wiki-compare table { border-collapse: collapse; width: 100%; font-size: var(--sl-text-sm); }
-.wiki-compare caption { text-align: start; font-weight: 600; margin-bottom: .5rem; color: var(--sl-color-white); }
+/* Starlight asides: a quiet note line, not a coloured box. */
+.starlight-aside {
+	background: transparent;
+	border: 0;
+	padding: 0.25rem 0;
+	color: var(--sl-color-gray-2);
+	font-size: 0.9375rem;
+}
+.starlight-aside__title {
+	font-size: 0.8125rem;
+	font-weight: 600;
+	color: var(--sl-color-gray-3);
+	letter-spacing: 0;
+}
+.starlight-aside__icon { display: none; }
+
+/* ---------- Page head ---------- */
+.wiki-eyebrow,
+.wiki-list .meta {
+	font-family: var(--sl-font);
+	font-size: 0.8125rem;
+	color: var(--sl-color-gray-3);
+	margin-top: 1rem;
+	margin-bottom: -0.25rem;
+}
+.wiki-title {
+	margin-top: 1rem;
+	font-size: var(--sl-text-h1);
+	font-weight: 700;
+	line-height: 1.35;
+	letter-spacing: -0.022em;
+	color: var(--sl-color-white);
+	text-wrap: balance;
+}
+.wiki-lead {
+	font-size: 1.125rem;
+	line-height: 1.7;
+	color: var(--sl-color-gray-2);
+	margin-bottom: 1.75rem;
+}
+/* Starlight draws a rule under the title area; keep it as the one hairline. */
+.content-panel + .content-panel { border-top-color: var(--wiki-line); }
+
+/* ---------- Provenance ---------- */
+.wiki-prov { display: grid; gap: 1.25rem; font-size: 0.8125rem; line-height: 1.6; color: var(--sl-color-gray-3); }
+.wiki-prov h2 {
+	font-size: 0.78125rem;
+	font-weight: 600;
+	color: var(--sl-color-white);
+	margin: 0 0 0.25rem;
+}
+.wiki-prov p { margin: 0; }
+.wiki-prov ol { margin: 0; padding-inline-start: 1.2rem; display: grid; gap: 0.5rem; }
+.wiki-prov a { color: var(--sl-color-gray-2); text-decoration: underline; text-decoration-color: var(--wiki-line); text-underline-offset: 3px; }
+.wiki-prov a:hover { color: var(--sl-color-white); }
+.wiki-prov .note { display: block; color: var(--sl-color-gray-4); }
+
+.wiki-provenance-inline { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--wiki-line); }
+@media (min-width: 72rem) { .wiki-provenance-inline { display: none; } }
+.wiki-toc { padding-top: 1.25rem; border-top: 1px solid var(--wiki-line); }
+
+/* ---------- Visual parts ---------- */
+.wiki-gist {
+	margin: 0 0 2.25rem;
+	padding-block: 1.1rem;
+	border-top: 1px solid var(--wiki-line);
+	border-bottom: 1px solid var(--wiki-line);
+	display: grid;
+	gap: 0.4rem;
+}
+.wiki-gist-title { margin: 0; font-weight: 650; color: var(--sl-color-white); }
+.wiki-gist ol { margin: 0; padding-inline-start: 1.25rem; color: var(--sl-color-gray-2); font-size: 0.96875rem; display: grid; gap: 0.2rem; }
+
+.wiki-compare { margin: 1.5rem 0 2rem; }
+.wiki-compare figcaption,
+.wiki-flow figcaption {
+	font-size: 0.8125rem;
+	font-weight: 600;
+	color: var(--sl-color-gray-3);
+	margin-bottom: 0.5rem;
+}
+.wiki-compare .scroll { overflow-x: auto; }
+.wiki-compare table { border-collapse: collapse; width: 100%; font-size: 0.90625rem; line-height: 1.6; }
 .wiki-compare th,
-.wiki-compare td { border: 1px solid var(--sl-color-gray-5); padding: .5rem .75rem; text-align: start; vertical-align: top; }
-.wiki-compare thead th { background: var(--sl-color-gray-6); color: var(--sl-color-white); }
-.wiki-compare tbody th { font-weight: 600; color: var(--sl-color-white); }
-.wiki-compare .hl { background: var(--sl-color-accent-low); }
+.wiki-compare td { text-align: start; vertical-align: top; padding: 0.6rem 0.9rem 0.6rem 0; border-bottom: 1px solid var(--wiki-line); }
+.wiki-compare thead th { font-size: 0.8125rem; font-weight: 500; color: var(--sl-color-gray-3); }
+.wiki-compare tbody th { font-weight: 600; color: var(--sl-color-white); white-space: nowrap; }
+.wiki-compare td { color: var(--sl-color-gray-2); }
+.wiki-compare td.hl { color: var(--sl-color-white); font-weight: 600; }
 
-.wiki-flow { margin: 1.5rem 0; }
-.wiki-flow ol { list-style: none; padding: 0; margin: 0; display: grid; gap: .6rem; }
-.wiki-flow li { display: flex; gap: .75rem; align-items: flex-start; padding: .75rem 1rem; border: 1px solid var(--sl-color-gray-5); border-radius: .5rem; position: relative; margin: 0; }
-.wiki-flow li + li::before { content: ""; position: absolute; top: -.65rem; left: 1.7rem; height: .6rem; border-left: 2px solid var(--sl-color-gray-4); }
-.wiki-flow li.human { border-color: var(--wiki-human); background: var(--wiki-human-bg); }
-.wiki-flow .num { flex: none; width: 1.5rem; height: 1.5rem; border-radius: 50%; display: grid; place-items: center; font-size: var(--sl-text-xs); font-weight: 700; background: var(--sl-color-accent); color: var(--sl-color-black); }
-.wiki-flow li.human .num { background: var(--wiki-human); }
-.wiki-flow p { margin: 0; }
+.wiki-flow { margin: 1.5rem 0 1.25rem; }
+.wiki-flow ol { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--wiki-line); }
+.wiki-flow li {
+	display: grid;
+	grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+	gap: 0.75rem;
+	padding-block: 0.65rem;
+	border-bottom: 1px solid var(--wiki-line);
+	margin: 0;
+}
+.wiki-flow .n { font-family: var(--sl-font-mono); font-size: 0.78125rem; color: var(--sl-color-gray-3); padding-top: 0.15rem; }
+.wiki-flow .body { display: grid; gap: 0.1rem; min-width: 0; }
 .wiki-flow .title { font-weight: 600; color: var(--sl-color-white); }
-.wiki-flow .owner { margin-inline-start: .5rem; font-size: var(--sl-text-xs); font-weight: 500; padding: 0 .4rem; border-radius: .25rem; border: 1px solid var(--sl-color-gray-4); color: var(--sl-color-gray-2); }
-.wiki-flow .detail { font-size: var(--sl-text-sm); color: var(--sl-color-gray-2); margin-top: .2rem; }
-.wiki-flow figcaption { font-size: var(--sl-text-sm); color: var(--sl-color-gray-3); margin-top: .5rem; }
+.wiki-flow .detail { font-size: 0.875rem; color: var(--sl-color-gray-3); line-height: 1.6; }
+.wiki-flow .owner { font-size: 0.8125rem; color: var(--sl-color-gray-3); padding-top: 0.2rem; text-align: end; }
+.wiki-flow li.human .owner { color: var(--wiki-accent); }
+@media (max-width: 36rem) {
+	.wiki-flow li { grid-template-columns: 2rem minmax(0, 1fr); }
+	.wiki-flow .owner { grid-column: 2; text-align: start; padding-top: 0; }
+}
 
-.wiki-summary { margin: 1.5rem 0; padding: 1rem 1.25rem; border-radius: .5rem; border-inline-start: 4px solid var(--sl-color-accent); background: var(--sl-color-accent-low); }
-.wiki-summary .label { margin: 0; font-size: var(--sl-text-xs); font-weight: 700; letter-spacing: .04em; color: var(--sl-color-accent-high); }
-.wiki-summary .title { margin: .25rem 0 0; font-size: var(--sl-text-lg); font-weight: 700; color: var(--sl-color-white); }
-.wiki-summary ul { margin: .5rem 0 0; padding-inline-start: 1.1rem; }
-.wiki-summary li { margin: .15rem 0; }
+/* ---------- Wiki home list ---------- */
+.wiki-list { list-style: none; padding: 0; margin: 1.5rem 0 0; border-top: 1px solid var(--wiki-line); }
+.wiki-list li { padding-block: 1.1rem; border-bottom: 1px solid var(--wiki-line); margin: 0; display: grid; gap: 0.3rem; }
+.wiki-list .meta { color: var(--sl-color-gray-3); }
+/* Mono only for digits: dates and step numbers. Korean labels stay in the text face. */
+.wiki-eyebrow .d,
+.wiki-list .meta .d { font-family: var(--sl-font-mono); font-size: 0.75rem; letter-spacing: 0; }
+
+/* ---------- Table of contents (right margin) ---------- */
+.wiki-toc h2 { font-size: 0.78125rem; font-weight: 600; color: var(--sl-color-white); margin: 0 0 0.5rem; }
+.wiki-toc ul { list-style: none; margin: 0; padding: 0; }
+.wiki-toc ul ul { padding-inline-start: 0.75rem; }
+.wiki-toc a {
+	display: block;
+	padding-block: 0.2rem;
+	font-size: 0.8125rem;
+	line-height: 1.5;
+	color: var(--sl-color-gray-3);
+	text-decoration: none;
+}
+.wiki-toc a:hover { color: var(--sl-color-white); }
+.wiki-toc a[aria-current='true'] { color: var(--sl-color-white); font-weight: 600; }
+.wiki-list a { font-weight: 650; font-size: 1.0625rem; color: var(--sl-color-white); text-decoration: none; letter-spacing: -0.01em; }
+.wiki-list a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.wiki-list p { margin: 0; font-size: 0.9375rem; color: var(--sl-color-gray-3); line-height: 1.65; }
+
+/* ---------- Figures (screenshots) ---------- */
+.sl-markdown-content figure.wiki-shot { margin: 1.25rem 0 2rem; }
+.wiki-shot img { display: block; width: 100%; height: auto; border: 1px solid var(--wiki-line); border-radius: 6px; }
+.wiki-shot figcaption { font-size: 0.8125rem; color: var(--sl-color-gray-3); margin-top: 0.5rem; }

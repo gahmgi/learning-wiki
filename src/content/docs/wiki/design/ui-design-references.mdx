@@ -1,0 +1,126 @@
+---
+title: UI·디자인 레퍼런스
+description: 화면을 만들 때 참고하는 사이트와 각 사이트에서 가져올 한 가지를 모아 둡니다. 이 위키의 디자인을 정한 과정과 시안 세 가지도 함께 남깁니다.
+worknote_id: f50d13ec-9ae4-4eb2-89e7-2053eb4857b9
+status: 레퍼런스는 사이트의 성격을 기준으로 골랐고, 이번 정리에서 각 사이트를 다시 열어 확인하지는 않았습니다. Maggie Appleton은 2차 정리 글로만 확인했습니다.
+learned: 2026-11-11
+sources:
+  - title: Andy Matuschak's notes
+    url: https://notes.andymatuschak.org/
+  - title: Gwern.net
+    url: https://gwern.net/
+  - title: Maggie Appleton, Digital Garden
+    url: https://maggieappleton.com/garden
+    note: 정리 글(mxstbr.com)로 확인
+  - title: Stripe Press
+    url: https://press.stripe.com/
+  - title: Robin Sloan
+    url: https://www.robinsloan.com/
+  - title: Linear Changelog
+    url: https://linear.app/changelog
+  - title: 토스 기술 블로그
+    url: https://toss.tech/
+  - title: Vercel Geist
+    url: https://vercel.com/geist/introduction
+  - title: 위시켓, 2024 기업 홈페이지 제작 참고 사이트 모음
+    url: https://blog.naver.com/wishket/223381251251
+    note: 레퍼런스 갤러리 목록(비핸스, 디비컷, 핀터레스트, RWDB, Mobbin)
+---
+
+import CompareTable from '../../../../components/CompareTable.astro';
+import StepFlow from '../../../../components/StepFlow.astro';
+import SummaryCard from '../../../../components/SummaryCard.astro';
+import shotA from '../../../../assets/design/direction-a.webp';
+import shotB from '../../../../assets/design/direction-b.webp';
+import shotC from '../../../../assets/design/direction-c.webp';
+
+<SummaryCard
+	title="레퍼런스는 사이트 이름이 아니라 그 사이트에서 가져올 한 가지로 적어 둡니다."
+	points={[
+		'"Gwern처럼"은 쓸 수 없지만 "각주를 본문 옆 여백으로"는 바로 쓸 수 있습니다.',
+		'가져오지 않기로 한 것도 함께 적어야 같은 실수를 반복하지 않습니다.',
+		'방향이 열려 있으면 실제 내용으로 서로 다른 결의 시안 세 개를 나란히 놓고 고릅니다.',
+	]}
+/>
+
+## 레퍼런스 목록
+
+<CompareTable
+	caption="사이트별로 가져올 것"
+	columns={['사이트', '성격', '가져올 것']}
+	highlight={2}
+	rows={[
+		["Andy Matuschak's notes", '연구 노트', '장식 없이 글과 링크만으로 이어 읽게 하는 절제'],
+		['Gwern.net', '연구 노트', '각주를 본문 옆 여백으로 빼는 방식, 무채색만으로 위계를 만드는 법'],
+		['Maggie Appleton', '디지털 가든', '노트의 완성 단계를 조용한 문구로 붙이는 관행'],
+		['Stripe Press', '단행본', '책을 웹으로 옮길 때의 표제·여백·표 조판'],
+		['Robin Sloan', '개인 사이트', '개인 사이트를 글 중심의 지면으로 만드는 절제'],
+		['Linear Changelog', '제품 문서', '왼쪽 라벨 열과 오른쪽 본문, 글자가 커질수록 조이는 자간'],
+		['토스 기술 블로그', '한글 블로그', '한글 본문의 행간·자간, 회색 면 하나로만 구분하는 방식'],
+		['Vercel Geist', '디자인 시스템', '무채색 단계와 표·목록의 간격 규칙'],
+	]}
+/>
+
+레퍼런스를 새로 찾을 때는 갤러리를 씁니다. 비핸스, 디비컷, 핀터레스트, RWDB, Mobbin이 대표적이고, 위시켓이 정리한 목록이 출처에 있습니다.
+갤러리에서 마음에 드는 화면을 찾으면 위 표에 한 줄로 더하고, **가져올 것**을 한 문장으로 적습니다.
+
+## 가져오지 않는 것
+
+화면을 AI에게 맡기면 자주 나오는 모양이 있습니다. 이 위키 첫 버전에도 그대로 나왔습니다.
+
+- 둥근 카드에 굵은 왼쪽 세로선을 긋고 연한 색으로 칠한 요약 상자
+- 파란색 강조색과 파란 음영, 보라에서 파랑으로 넘어가는 그라데이션
+- 설명 없이 붙은 상태 알약(예: "자라는 중")
+- 페이지가 없는데 먼저 만들어 둔 빈 카테고리
+- 카드 그리드와 썸네일로 채운 매거진형 목록. 문서를 읽게 하기보다 구경하게 만듭니다.
+
+## 디자인을 정한 순서
+
+<StepFlow
+	caption="2026-11-11 이 위키에서 실제로 밟은 순서입니다."
+	steps={[
+		{ title: '진단을 숫자로 재기', owner: 'Claude', detail: '소제목이 본문의 2.2배, 칠한 상자 약 15개, 영문·한글 서체가 갈라짐' },
+		{ title: '진단 합의', owner: '직접', human: true, detail: '"차분한 톤, 알록달록하지 않게, 필요한 부분만 절제해서"' },
+		{ title: '레퍼런스 공부', owner: 'Claude', detail: '사이트마다 가져올 것 하나를 정함' },
+		{ title: '색·서체 먼저 정하기', owner: 'Claude', detail: '색 4~6개, 서체 2개. 그 밖의 값은 쓰지 않음' },
+		{ title: '실제 내용으로 시안 세 개', owner: 'Claude', detail: '같은 첫 페이지를 서로 다른 결로 조판' },
+		{ title: '방향 선택', owner: '직접', human: true, detail: 'A안 연구 노트' },
+		{ title: '렌더해서 확인', owner: 'Claude', detail: '데스크톱·좁은 화면·다크에서 줄바꿈과 넘침 확인' },
+	]}
+/>
+
+## 시안 세 가지
+
+같은 첫 페이지 내용을 세 결로 조판했습니다. 시안의 서체는 구글 폰트로 대신 넣었고, 실제 위키에는 Pretendard를 씁니다.
+
+### A. 연구 노트 (채택)
+
+출처와 날짜를 본문 옆 여백에 두어 본문은 조용하고, 근거는 옆에서 바로 보입니다. 고딕 하나에 숫자·날짜만 고정폭 서체를 쓰고, 강조색은 이끼색 하나입니다.
+
+<figure class="wiki-shot">
+	<img src={shotA.src} width={shotA.width} height={shotA.height} alt="A안 연구 노트 시안. 본문 오른쪽 여백에 정리 상태와 출처가 놓여 있다." loading="lazy" decoding="async" />
+	<figcaption>A안. 참고: Andy Matuschak's notes, Gwern.net, Maggie Appleton</figcaption>
+</figure>
+
+### B. 단행본
+
+명조 본문과 가운데 정렬 표제로 책 한 쪽처럼 읽힙니다. 색 없이 굵기와 괘선 두께로만 위계를 만듭니다.
+
+<figure class="wiki-shot">
+	<img src={shotB.src} width={shotB.width} height={shotB.height} alt="B안 단행본 시안. 명조 본문과 가운데 정렬 제목, 위아래 괘선이 있는 표." loading="lazy" decoding="async" />
+	<figcaption>B안. 참고: Stripe Press, Robin Sloan, 단행본 본문 조판</figcaption>
+</figure>
+
+### C. 정돈된 문서
+
+왼쪽에 절 이름, 오른쪽에 내용을 두는 격자입니다. 홈페이지·소개·작업 목록 같은 다른 화면으로 넓히기에 가장 유리합니다.
+
+<figure class="wiki-shot">
+	<img src={shotC.src} width={shotC.width} height={shotC.height} alt="C안 정돈된 문서 시안. 왼쪽 라벨 열과 오른쪽 본문, 가로로 펼친 흐름도." loading="lazy" decoding="async" />
+	<figcaption>C안. 참고: Linear Changelog, 토스 기술 블로그, Vercel Geist</figcaption>
+</figure>
+
+## A안을 고른 이유
+
+이 위키가 보여 줄 것은 배운 내용과 그 근거입니다. 출처를 여백에 두는 A안이 그 성격을 가장 직접 보여 주고, 차분하고 절제된 톤이라는 기준에도 가장 가깝습니다.
+나중에 만들 홈페이지는 같은 서체와 색을 쓰되 C안의 격자를 빌려 오면 위키와 이어집니다.

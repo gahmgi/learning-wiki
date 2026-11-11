@@ -1,0 +1,23 @@
+---
+// Lists learning pages, newest first: category · date, title, lead sentence.
+import { getCollection } from 'astro:content';
+import { pageInfo, joinDots } from '../lib/meta';
+
+const pages = (await getCollection('docs'))
+	.filter((e) => e.id.startsWith('wiki/') && e.data.page !== 'hub')
+	.map((e) => ({ e, info: pageInfo(e) }))
+	.sort((a, b) => b.info.learned.localeCompare(a.info.learned));
+const href = (id: string) => `/${id}/`;
+---
+
+<ul class="wiki-list not-content">
+	{
+		pages.map(({ e, info }) => (
+			<li>
+				<span class="meta">{info.category}{info.category && info.learned && " · "}<span class="d">{info.learned}</span></span>
+				<a href={href(e.id)}>{joinDots(e.data.title)}</a>
+				{e.data.description && <p>{e.data.description}</p>}
+			</li>
+		))
+	}
+</ul>

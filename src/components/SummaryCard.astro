@@ -1,16 +1,15 @@
 ---
-// Key-takeaway card. Put the one-line conclusion in `title`, supporting points in `points`.
+// Key takeaway: one-line conclusion plus numbered supporting points, set between two hairlines.
+// Use once, at the top of a page.
 interface Props {
 	title: string;
 	points?: string[];
-	label?: string;
 }
-const { title, points = [], label = '핵심 요약' } = Astro.props;
+const { title, points = [] } = Astro.props;
 ---
 
-<aside class="wiki-summary not-content" aria-label={label}>
-	<p class="label">{label}</p>
-	<p class="title">{title}</p>
-	{points.length > 0 && <ul>{points.map((p) => <li>{p}</li>)}</ul>}
+<div class="wiki-gist not-content">
+	<p class="wiki-gist-title">{title}</p>
+	{points.length > 0 && <ol>{points.map((p) => <li>{p}</li>)}</ol>}
 	<slot />
-</aside>
+</div>

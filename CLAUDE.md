@@ -1,7 +1,10 @@
-# 학습 위키 - 작업 지침
+# loglab study wiki - 작업 지침
 
-배운 것을 그림과 표로 쌓아 두는 개인 위키입니다. Astro Starlight로 만들고, `dist/`만 정적 호스팅에 배포합니다.
+공부한 것을 표와 흐름으로 정리해 두는 개인 위키입니다. Astro Starlight로 만들고, `dist/`만 정적 호스팅에 배포합니다.
 첫 주제는 게임 개발과 AI 아트 파이프라인입니다.
+
+**주소는 `/wiki/` 아래에 둡니다.** 나중에 `/`에 홈페이지가 들어와도 원 노트에 덧붙인 위키 링크가 깨지지 않게 하려는 것입니다.
+지금은 `/`가 `/wiki/`로 리다이렉트됩니다(`astro.config.mjs`). 이 구조는 첫 발행 이후 바꾸지 않습니다.
 
 ## 1. 계정 (가장 먼저 확인)
 
@@ -38,10 +41,14 @@ Netlify는 Pro 플랜의 Project visibility, Cloudflare는 Access입니다.
 
 | 카테고리 | 폴더 |
 |---|---|
-| 파이프라인 | `src/content/docs/pipeline/` |
-| 도구 | `src/content/docs/tools/` |
-| 법·정책 | `src/content/docs/law-policy/` |
-| 조직·직무 | `src/content/docs/org-roles/` |
+| 파이프라인 | `src/content/docs/wiki/pipeline/` |
+| 도구 | `src/content/docs/wiki/tools/` |
+| 법·정책 | `src/content/docs/wiki/law-policy/` |
+| 조직·직무 | `src/content/docs/wiki/org-roles/` |
+| 디자인 | `src/content/docs/wiki/design/` |
+
+- 카테고리는 페이지가 하나라도 생겨야 사이드바에 나옵니다(`astro.config.mjs`의 `hasPages`). 빈 개요 페이지를 미리 만들지 않습니다.
+- 새 카테고리를 더하면 `astro.config.mjs`의 `CATEGORIES`와 `src/lib/meta.ts`의 `CATEGORY_LABELS` 두 곳에 한 줄씩 넣습니다.
 
 파일 이름은 영문 소문자와 하이픈으로 짓습니다(주소가 됩니다). 제목은 머리말 `title`에 한국어로 씁니다.
 
@@ -52,7 +59,7 @@ Netlify는 Pro 플랜의 Project visibility, Cloudflare는 Access입니다.
 title: 페이지 제목
 description: 제목 아래 리드 문장. 이 페이지의 결론 한두 문장.
 worknote_id: <WorkNote 원 노트 UUID>
-maturity: 씨앗 | 자라는 중 | 정리됨
+status: 무엇을 확인했고 무엇을 아직 안 봤는지 한 문장
 learned: 2026-11-11
 sources:
   - title: 자료 이름 (발행일)
@@ -61,21 +68,20 @@ sources:
 ---
 ```
 
-- 검사는 `src/content.config.ts`의 스키마가 합니다. 학습 페이지는 위 4칸(`worknote_id`·`maturity`·`sources`·`learned`)이 하나라도 없으면 빌드가 멈춥니다.
+- 검사는 `src/content.config.ts`의 스키마가 합니다. 학습 페이지는 위 4칸(`worknote_id`·`status`·`sources`·`learned`)이 하나라도 없으면 빌드가 멈춥니다.
 - 홈·카테고리 개요처럼 원 노트가 없는 페이지만 `page: hub`로 면제합니다. `index.md`·`index.mdx`가 아닌 파일에 쓰면 `scripts/check-hubs.mjs`가 빌드를 멈춥니다.
-- 성숙도 기준
-  - **씨앗**: 요약·기사만 봤거나 논점만 적어 둔 상태
-  - **자라는 중**: 주요 출처를 확인했고 구조가 잡힌 상태
-  - **정리됨**: 원문까지 확인했고 다시 고칠 일이 거의 없는 상태
-- 한 페이지 안에서 일부 절만 확인이 덜 됐으면 그 절 위에 `<Aside type="caution" title="성숙도: 씨앗">`를 둡니다.
+- `status`는 덜 된 글도 일찍 올리고, 읽는 사람에게 어디까지 믿어도 되는지 알려 주려고 둡니다.
+  단계 이름(씨앗·정리됨 같은 것)을 쓰지 않고, 확인한 범위를 문장으로 적습니다. 예: "주요 출처는 확인했습니다. 저작권 절은 기사 해설까지만 읽었습니다."
+  화면에서는 오른쪽 여백(좁은 화면에서는 본문 아래)의 「정리 상태」에 그대로 나옵니다.
+- 한 페이지 안에서 일부 절만 확인이 덜 됐으면 그 절 위에 `<Aside type="note" title="확인 범위">`를 둡니다. 색 상자가 아니라 조용한 한 줄로 보입니다.
 - 출처는 실제로 열어 본 자료만 씁니다. 요약만 봤으면 `note`에 그렇게 적습니다.
 
 ### 시각화 부품 (`src/components/`)
 
 ```mdx
-import CompareTable from '../../../components/CompareTable.astro';
-import StepFlow from '../../../components/StepFlow.astro';
-import SummaryCard from '../../../components/SummaryCard.astro';
+import CompareTable from '../../../../components/CompareTable.astro';
+import StepFlow from '../../../../components/StepFlow.astro';
+import SummaryCard from '../../../../components/SummaryCard.astro';
 
 <SummaryCard title="결론 한 문장" points={['근거 1', '근거 2']} />
 
@@ -87,14 +93,26 @@ import SummaryCard from '../../../components/SummaryCard.astro';
 />
 
 <StepFlow
-  caption="주황색 단계는 사람이 맡는 자리"
+  caption="'사람 판단'이 붙은 단계는 사람이 맡는 자리"
   steps={[{ title: '단계', owner: '담당', detail: '설명', human: true }]}
 />
 ```
 
 - 요약 카드는 페이지 맨 위에 하나만 둡니다.
 - 비교표의 첫 열은 행 이름입니다. `highlight`는 강조할 열 번호(0부터)입니다.
-- 흐름도에서 `human: true`인 단계는 주황색으로 표시됩니다. 사람이 판단하고 책임지는 자리에만 씁니다.
+- 흐름도에서 `human: true`인 단계는 담당 칸에 "사람 판단"이 붙고 강조색으로 표시됩니다. 사람이 판단하고 책임지는 자리에만 씁니다.
+- 그림(캡처)은 `src/assets/<카테고리>/`에 webp로 두고 `<figure class="wiki-shot">`로 넣습니다. 예시는 `wiki/design/ui-design-references.mdx`.
+
+### 디자인 기준 (A안 「연구 노트」, 2026-11-11 채택)
+
+정한 과정과 시안 세 가지는 위키의 [UI·디자인 레퍼런스](src/content/docs/wiki/design/ui-design-references.mdx) 페이지에 있습니다. 화면을 고칠 때는 아래를 지킵니다.
+
+- 서체는 Pretendard 하나. 고정폭(IBM Plex Mono)은 날짜·단계 번호 같은 **숫자에만** 씁니다. 한글 라벨에 고정폭을 쓰면 글자 사이가 벌어져 보입니다.
+- 색은 `src/styles/wiki.css` 맨 위 토큰만 씁니다. 따뜻한 무채색 + 이끼색 강조 하나. **파란색·파란 음영은 쓰지 않습니다.**
+- 칠한 상자, 둥근 카드, **카드 왼쪽 굵은 세로선**을 만들지 않습니다. 구분은 가는 가로선과 여백으로 합니다.
+- 출처·정리 상태는 본문이 아니라 오른쪽 여백에 둡니다(`PageSidebar`·`Provenance` 부품).
+- 한글 줄바꿈은 `word-break: keep-all`. 제목·리드의 가운뎃점은 `joinDots`로 앞에서 줄이 바뀌지 않게 합니다.
+- 고친 뒤에는 데스크톱·좁은 화면(500px)·다크를 렌더해서 직접 봅니다. 빌드 통과는 디자인 확인이 아닙니다.
 
 ### 문체
 

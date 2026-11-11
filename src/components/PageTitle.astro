@@ -1,0 +1,20 @@
+---
+// Overrides Starlight's PageTitle: adds a quiet "category · date" line above learning-page titles.
+// Same id Starlight uses so skip links and the table of contents keep working.
+const PAGE_TITLE_ID = '_top';
+import { pageInfo, joinDots } from '../lib/meta';
+
+const { entry } = Astro.locals.starlightRoute;
+const { isLearning, category, learned } = pageInfo(entry);
+---
+
+{
+	isLearning && (
+		<p class="wiki-eyebrow">
+			{category}
+			{category && learned && ' · '}
+			<span class="d">{learned}</span>
+		</p>
+	)
+}
+<h1 id={PAGE_TITLE_ID} class="wiki-title">{joinDots(entry.data.title)}</h1>

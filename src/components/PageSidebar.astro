@@ -1,0 +1,45 @@
+---
+// Overrides Starlight's PageSidebar. Learning pages put provenance in the right margin (wide screens),
+// then the table of contents. Hub pages keep only the table of contents.
+import MobileTableOfContents from 'virtual:starlight/components/MobileTableOfContents';
+import TableOfContents from 'virtual:starlight/components/TableOfContents';
+import { pageInfo } from '../lib/meta';
+import Provenance from './Provenance.astro';
+
+const { entry, toc } = Astro.locals.starlightRoute;
+const { isLearning } = pageInfo(entry);
+---
+
+{
+	toc && (
+		<div class="lg:sl-hidden">
+			<MobileTableOfContents />
+		</div>
+	)
+}
+{
+	(isLearning || toc) && (
+		<div class="right-sidebar-panel sl-hidden lg:sl-block">
+			<div class="wiki-margin">
+				{isLearning && <Provenance />}
+				{toc && (
+					<div class="wiki-toc">
+						<TableOfContents />
+					</div>
+				)}
+			</div>
+		</div>
+	)
+}
+
+<style>
+	.right-sidebar-panel {
+		padding: 2.25rem var(--sl-sidebar-pad-x) 2rem;
+	}
+	.wiki-margin {
+		display: grid;
+		gap: 2rem;
+		width: calc(var(--sl-sidebar-width) - 2 * var(--sl-sidebar-pad-x));
+		max-width: 100%;
+	}
+</style>
