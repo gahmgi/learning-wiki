@@ -52,13 +52,14 @@ Netlify는 Pro 플랜의 Project visibility, Cloudflare는 Access입니다.
 
 파일 이름은 영문 소문자와 하이픈으로 짓습니다(주소가 됩니다). 제목은 머리말 `title`에 한국어로 씁니다.
 
-### 머리말 (필수 4칸, 빠지면 빌드 실패)
+### 머리말 (빠지면 빌드 실패)
 
 ```yaml
 ---
 title: 페이지 제목
 description: 제목 아래 리드 문장. 이 페이지의 결론 한두 문장.
-worknote_id: <WorkNote 원 노트 UUID>
+origin: worknote        # worknote(WorkNote에서 발행, 기본값) | wiki(위키에서 직접 작성)
+worknote_id: <WorkNote 원 노트 UUID>   # origin: worknote 일 때만 필수
 status: 무엇을 확인했고 무엇을 아직 안 봤는지 한 문장
 learned: 2026-11-11
 sources:
@@ -68,7 +69,8 @@ sources:
 ---
 ```
 
-- 검사는 `src/content.config.ts`의 스키마가 합니다. 학습 페이지는 위 4칸(`worknote_id`·`status`·`sources`·`learned`)이 하나라도 없으면 빌드가 멈춥니다.
+- 검사는 `src/content.config.ts`의 스키마가 합니다. 학습 페이지는 `status`·`sources`·`learned`가 하나라도 없으면 빌드가 멈춥니다.
+  `origin: worknote`(기본값)인 페이지는 `worknote_id`도 필수입니다. 화면 여백의 「쓴 곳」이 둘을 구분해 보여 줍니다.
 - 홈·카테고리 개요처럼 원 노트가 없는 페이지만 `page: hub`로 면제합니다. `index.md`·`index.mdx`가 아닌 파일에 쓰면 `scripts/check-hubs.mjs`가 빌드를 멈춥니다.
 - `status`는 덜 된 글도 일찍 올리고, 읽는 사람에게 어디까지 믿어도 되는지 알려 주려고 둡니다.
   단계 이름(씨앗·정리됨 같은 것)을 쓰지 않고, 확인한 범위를 문장으로 적습니다. 예: "주요 출처는 확인했습니다. 저작권 절은 기사 해설까지만 읽었습니다."
@@ -121,7 +123,25 @@ import SummaryCard from '../../../../components/SummaryCard.astro';
 - 형기님이 준 문장은 고치지 않습니다. 손대야 하면 "원문 / 수정안 / 사유"로 먼저 보여 줍니다.
 - 글쓰기 지침 정본은 공유 드라이브 `지침(.md)` 폴더입니다(`writing-guide` 스킬). 이 저장소에 복제하지 않습니다.
 
-## 4. 발행 절차 (WorkNote → 위키, 단방향)
+## 4. 글이 들어오는 두 길
+
+| 길 | 언제 | 머리말 |
+|---|---|---|
+| **WorkNote에서 발행** | 공부하면서 WorkNote에 적어 둔 것을 정리할 때 | `origin: worknote` + `worknote_id` |
+| **위키에서 직접 작성** | 캡처·이미지·표·도식이 많아 처음부터 위키에서 짜는 편이 나을 때 | `origin: wiki` (`worknote_id` 없음) |
+
+어느 길이든 `status`·`sources`·`learned`는 필수입니다. 근거를 적는 위키라는 성격은 같습니다.
+
+### 4-1. 직접 작성 절차
+
+1. 형기님이 쓰고 싶은 내용과 캡처를 주면 Claude가 카테고리 폴더에 `origin: wiki` 페이지를 짭니다.
+   이미지는 `src/assets/<카테고리>/`에 webp로 넣습니다(예시: `wiki/design/ui-design-references.mdx`).
+2. 브랜치 → PR을 열고 Netlify 배포 미리보기에서 봅니다. 간단한 문장 수정은 GitHub 웹에서 파일을 직접 고쳐도 같은 미리보기가 뜹니다.
+3. 병합하면 배포됩니다. WorkNote에는 아무것도 쓰지 않습니다.
+4. 웹 편집기(CMS)는 아직 붙이지 않습니다. Decap CMS류는 Netlify Identity 같은 외부 로그인에 기대 이식성 규칙과 부딪힙니다.
+   글을 몇 편 더 써 본 뒤 불편이 실제로 어디서 나는지 보고 정합니다(2026-11-11 결정).
+
+### 4-2. WorkNote 발행 절차 (단방향)
 
 WorkNote가 원본이고 위키는 발행본입니다. 위키에서 고친 내용은 WorkNote로 되돌려 쓰지 않습니다.
 

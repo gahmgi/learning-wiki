@@ -5,6 +5,7 @@ import { pageInfo } from '../lib/meta';
 
 const { entry } = Astro.locals.starlightRoute;
 const { status, sources } = pageInfo(entry);
+const fromWorkNote = entry.data.origin !== 'wiki';
 ---
 
 <div class="wiki-prov">
@@ -26,7 +27,7 @@ const { status, sources } = pageInfo(entry);
 		</ol>
 	</section>
 	<section>
-		<h2>원 노트</h2>
-		<p>WorkNote에서 발행</p>
+		<h2>쓴 곳</h2>
+		<p>{fromWorkNote ? 'WorkNote 학습 노트에서 발행' : '위키에서 직접 작성'}</p>
 	</section>
 </div>
