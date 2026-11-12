@@ -138,7 +138,7 @@ import SummaryCard from '../../../../components/SummaryCard.astro';
    이미지는 `src/assets/<카테고리>/`에 webp로 넣습니다(예시: `wiki/design/ui-design-references.mdx`).
 2. 브랜치 → PR을 열고 Netlify 배포 미리보기에서 봅니다. 간단한 문장 수정은 GitHub 웹에서 파일을 직접 고쳐도 같은 미리보기가 뜹니다.
 3. 병합하면 배포됩니다. WorkNote에는 아무것도 쓰지 않습니다.
-4. 웹 편집기는 **Pages CMS**(app.pagescms.org)를 `try/pages-cms` 브랜치에서 시험 중입니다(2026-11-12).
+4. 웹 편집기는 **Pages CMS**(app.pagescms.org)입니다(2026-11-12 시험 후 채택, PR #4). gahmgi 계정으로 로그인합니다.
    설정은 저장소 맨 위 `.pages.yml` 하나이고 빌드 결과(`dist/`)에 들어가지 않아 이식성 규칙과 부딪히지 않습니다.
    Decap CMS류는 Netlify Identity에 기대므로 쓰지 않습니다.
    - 「글 쓰기 (서식 편집)」: 새 `.md` 글. 이미지는 `public/wiki/media/`에 올라가고 본문에 `/wiki/media/…`로 들어갑니다.

@@ -1,4 +1,4 @@
-# Pages CMS (https://pagescms.org) web editor config. Trial on branch try/pages-cms.
+# Pages CMS (https://pagescms.org) web editor config. Adopted 2026-11-12 (PR #4).
 # Not part of the build: dist/ is unchanged, so the portability rule holds. Delete this file to remove the editor.
 # Field names mirror src/content.config.ts. The schema still runs at build time, so a bad save fails the preview.
 
