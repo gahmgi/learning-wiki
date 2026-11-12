@@ -5,7 +5,8 @@
 media:
   input: public/wiki/media
   output: /wiki/media
-  rename: safe
+  # Pasted screenshots all arrive as image.png; random names keep them from colliding.
+  rename: random
   categories: [image]
 
 settings:

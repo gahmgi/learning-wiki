@@ -143,6 +143,7 @@ import SummaryCard from '../../../../components/SummaryCard.astro';
    Decap CMS류는 Netlify Identity에 기대므로 쓰지 않습니다.
    - 「글 쓰기 (서식 편집)」: 새 `.md` 글. 이미지는 `public/wiki/media/`에 올라가고 본문에 `/wiki/media/…`로 들어갑니다.
    - 「원문 편집」: 기존 `.mdx` 글. 표·흐름도 부품을 서식 편집기가 지킬 수 없어 원문 그대로 고칩니다.
+   - 편집기 커밋의 작성자는 gahmgi 계정의 GitHub 비공개 주소(`37425705+gahmgi@users.noreply.github.com`)입니다. 개인 계정 주소라 회사 메일 금지 규칙에 맞습니다.
    - 저장할 때마다 그 브랜치에 커밋이 바로 생깁니다. `main`에서 저장하면 바로 배포되므로, 브랜치에서 쓰고 PR로 병합합니다.
    - 머리말 검사(`content.config.ts`)는 빌드에서 그대로 돕니다. 빠진 항목이 있으면 미리보기 빌드가 실패합니다.
 
