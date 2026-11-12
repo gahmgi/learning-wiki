@@ -1,0 +1,136 @@
+# Pages CMS (https://pagescms.org) web editor config. Trial on branch try/pages-cms.
+# Not part of the build: dist/ is unchanged, so the portability rule holds. Delete this file to remove the editor.
+# Field names mirror src/content.config.ts. The schema still runs at build time, so a bad save fails the preview.
+
+media:
+  input: public/wiki/media
+  output: /wiki/media
+  rename: safe
+  categories: [image]
+
+settings:
+  content:
+    # Keep frontmatter keys this file does not list (Starlight options, worknote_id on older pages).
+    merge: true
+  commit:
+    identity: app
+    templates:
+      create: 'wiki: {path} 새로 씀 (Pages CMS)'
+      update: 'wiki: {path} 고침 (Pages CMS)'
+      delete: 'wiki: {path} 지움 (Pages CMS)'
+      rename: 'wiki: {oldPath} → {newPath} (Pages CMS)'
+
+content:
+  # Prose pages with images. Rich-text editor writes plain Markdown, so use it for .md pages only.
+  - name: write
+    label: 글 쓰기 (서식 편집)
+    type: collection
+    path: src/content/docs/wiki
+    subfolders: true
+    exclude: [index.mdx]
+    filename:
+      template: '{primary}.md'
+      field: create
+    view:
+      fields: [title, learned]
+      primary: title
+      default:
+        sort: learned
+        order: desc
+    fields:
+      - name: title
+        label: 제목
+        type: string
+        required: true
+      - name: description
+        label: 리드 문장
+        description: 제목 아래 한 줄로 보입니다. 이 글이 무엇을 말하는지 한 문장으로 씁니다.
+        type: text
+        required: true
+      - name: origin
+        label: 쓴 곳
+        type: select
+        default: wiki
+        options:
+          values:
+            - name: wiki
+              label: 위키에서 직접 작성
+            - name: worknote
+              label: WorkNote 노트에서 발행
+      - name: worknote_id
+        label: WorkNote 노트 ID
+        description: 쓴 곳이 WorkNote일 때만 넣습니다.
+        type: string
+      - name: status
+        label: 정리 상태
+        description: 무엇을 확인했고 무엇을 아직 안 봤는지 한 문장. 예) 주요 출처 확인. 저작권 절은 기사 해설만 봄.
+        type: string
+        required: true
+      - name: learned
+        label: 공부한 날
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: sources
+        label: 출처
+        type: object
+        required: true
+        list:
+          min: 1
+          collapsible:
+            collapsed: true
+            summary: '{title}'
+        fields:
+          - name: title
+            label: 제목
+            type: string
+            required: true
+          - name: url
+            label: 주소
+            type: string
+          - name: note
+            label: 메모
+            type: string
+      - name: body
+        label: 본문
+        type: rich-text
+        options:
+          format: markdown
+
+  # Same files, raw text. Use this for .mdx pages: their tables and step flows are components the rich-text editor cannot keep.
+  - name: source
+    label: 원문 편집 (표·흐름도 있는 글)
+    type: collection
+    path: src/content/docs/wiki
+    subfolders: true
+    exclude: [index.mdx]
+    operations:
+      create: false
+    view:
+      fields: [title, learned]
+      primary: title
+    fields:
+      - name: title
+        label: 제목
+        type: string
+        required: true
+      - name: description
+        label: 리드 문장
+        type: text
+        required: true
+      - name: status
+        label: 정리 상태
+        type: string
+        required: true
+      - name: learned
+        label: 공부한 날
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: body
+        label: 본문 (MDX 원문)
+        type: code
+        options:
+          format: mdx
