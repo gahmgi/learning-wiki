@@ -138,8 +138,13 @@ import SummaryCard from '../../../../components/SummaryCard.astro';
    이미지는 `src/assets/<카테고리>/`에 webp로 넣습니다(예시: `wiki/design/ui-design-references.mdx`).
 2. 브랜치 → PR을 열고 Netlify 배포 미리보기에서 봅니다. 간단한 문장 수정은 GitHub 웹에서 파일을 직접 고쳐도 같은 미리보기가 뜹니다.
 3. 병합하면 배포됩니다. WorkNote에는 아무것도 쓰지 않습니다.
-4. 웹 편집기(CMS)는 아직 붙이지 않습니다. Decap CMS류는 Netlify Identity 같은 외부 로그인에 기대 이식성 규칙과 부딪힙니다.
-   글을 몇 편 더 써 본 뒤 불편이 실제로 어디서 나는지 보고 정합니다(2026-11-11 결정).
+4. 웹 편집기는 **Pages CMS**(app.pagescms.org)를 `try/pages-cms` 브랜치에서 시험 중입니다(2026-11-12).
+   설정은 저장소 맨 위 `.pages.yml` 하나이고 빌드 결과(`dist/`)에 들어가지 않아 이식성 규칙과 부딪히지 않습니다.
+   Decap CMS류는 Netlify Identity에 기대므로 쓰지 않습니다.
+   - 「글 쓰기 (서식 편집)」: 새 `.md` 글. 이미지는 `public/wiki/media/`에 올라가고 본문에 `/wiki/media/…`로 들어갑니다.
+   - 「원문 편집」: 기존 `.mdx` 글. 표·흐름도 부품을 서식 편집기가 지킬 수 없어 원문 그대로 고칩니다.
+   - 저장할 때마다 그 브랜치에 커밋이 바로 생깁니다. `main`에서 저장하면 바로 배포되므로, 브랜치에서 쓰고 PR로 병합합니다.
+   - 머리말 검사(`content.config.ts`)는 빌드에서 그대로 돕니다. 빠진 항목이 있으면 미리보기 빌드가 실패합니다.
 
 ### 4-2. WorkNote 발행 절차 (단방향)
 
