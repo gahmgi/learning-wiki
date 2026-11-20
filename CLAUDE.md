@@ -46,6 +46,7 @@ Netlify는 Pro 플랜의 Project visibility, Cloudflare는 Access입니다.
 | 법·정책 | `src/content/docs/wiki/law-policy/` |
 | 조직·직무 | `src/content/docs/wiki/org-roles/` |
 | 디자인 | `src/content/docs/wiki/design/` |
+| 스크랩 | `src/content/docs/wiki/scraps/` |
 
 - 카테고리는 페이지가 하나라도 생겨야 사이드바에 나옵니다(`astro.config.mjs`의 `hasPages`). 빈 개요 페이지를 미리 만들지 않습니다.
 - 새 카테고리를 더하면 `astro.config.mjs`의 `CATEGORIES`와 `src/lib/meta.ts`의 `CATEGORY_LABELS` 두 곳에 한 줄씩 넣습니다.
@@ -123,12 +124,13 @@ import SummaryCard from '../../../../components/SummaryCard.astro';
 - 형기님이 준 문장은 고치지 않습니다. 손대야 하면 "원문 / 수정안 / 사유"로 먼저 보여 줍니다.
 - 글쓰기 지침 정본은 공유 드라이브 `지침(.md)` 폴더입니다(`writing-guide` 스킬). 이 저장소에 복제하지 않습니다.
 
-## 4. 글이 들어오는 두 길
+## 4. 글이 들어오는 길
 
 | 길 | 언제 | 머리말 |
 |---|---|---|
 | **WorkNote에서 발행** | 공부하면서 WorkNote에 적어 둔 것을 정리할 때 | `origin: worknote` + `worknote_id` |
 | **위키에서 직접 작성** | 캡처·이미지·표·도식이 많아 처음부터 위키에서 짜는 편이 나을 때 | `origin: wiki` (`worknote_id` 없음) |
+| **스크랩** | 원문이 이미 좋아서 링크와 짧은 요약만 남길 때 | `origin: wiki`, 폴더는 `scraps/` |
 
 어느 길이든 `status`·`sources`·`learned`는 필수입니다. 근거를 적는 위키라는 성격은 같습니다.
 
@@ -163,6 +165,16 @@ WorkNote가 원본이고 위키는 발행본입니다. 위키에서 고친 내�
    원 노트 본문은 고치지 않습니다. 제목의 `[위키]`도 그대로 둡니다(발행 여부는 주소 줄로 판단).
 
 자동화는 첫 페이지를 발행해 본 뒤에 이 절차를 기준으로 만듭니다.
+
+### 4-3. 스크랩 (2026-11-20 추가)
+
+원문이 이미 잘 쓰여 있어서 다시 풀어 쓸 까닭이 없는 글은 스크랩으로 둡니다. 읽을 사람을 원문으로 보내는 것이 목적입니다.
+
+- 위치는 `wiki/scraps/`, 머리말은 `origin: wiki`. `status`·`sources`·`learned`는 그대로 필수입니다.
+- 본문 첫 줄에 원문 링크를 둡니다. 그 아래에는 어떤 글인지와 원문에서 볼 것만 짧게 적습니다. 원문을 옮기거나 문단마다 따라가며 풀어 쓰지 않습니다.
+- 제목은 원제를 그대로 쓰지 않고 내용이 가늠되게 짓습니다.
+- 표·흐름도가 필요 없으면 `.md`로 씁니다. 웹 편집기의 서식 편집으로 고칠 수 있습니다.
+- 나중에 내 해석이나 적용을 붙여 길게 쓰게 되면 그때 해당 카테고리로 옮깁니다.
 
 ## 5. 명령
 
